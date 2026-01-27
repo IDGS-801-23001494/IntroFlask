@@ -1,21 +1,40 @@
-from flask import Flask
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
 
 @app.route("/")  # Llamado ruta o decorador, cada decorador tiene asociado una funcion
 def index():
-    return "Hello,World!"
+    titulo = "Flask IDGS801"
+    lista=["Juan","Mario","Pedro","Dario"]
+    return render_template("index.html",titulo=titulo,lista=lista)
+
+@app.route("/operasBas",methods=['GET','POST'])
+def operas1():
+    n1=0
+    n2=0
+    res=0
+    if request.method=='POST':
+        n1=request.form.get('n1')
+        n2=request.form.get('n2')
+        res = float(n1)+ float(n2)
+    return render_template("operasBas.html",n1=n1,n2=n2,res=res)
+
+@app.route("/resultado",methods=['GET','POST'])
+def resultado():
+    n1=request.form.get('n1')
+    n2=request.form.get('n2')
+    tem = float(n1)+ float(n2)
+    return f"La suma es: {tem}"
+
+@app.route("/alumnos")
+def alumnos():
+    return render_template("alumnos.html")
 
 
-@app.route("/hola")
-def hola():
-    return "Hola, Mundo!"
-
-
-@app.route("/user/<string:user>")
-def user(user):
-    return f"Hello, {user}!"
+@app.route("/usuarios")
+def usuarios():
+    return render_template("usuarios.html")
 
 
 @app.route("/numero/<int:n>")
@@ -37,14 +56,14 @@ def func(param="Juan"):
     return f"<h1>Hola, {param}!</h1>"
 
 @app.route("/operas")
-def operas(n1, n2):
+def operas():
     return """
             <form>
-            <label form="name>Name: </label>
-            <input type="text" id="name" name="name" required>
-            </br>
-            <label for="name"> apaterno: </label>
-            <input type="text" id="name" name="name" required>
+                <label form="name">Name: </label>
+                <input type="text" id="name" name="name" required>
+                </br>
+                <label for="name"> apaterno: </label>
+                <input type="text" id="name" name="name" required>
             </form>
 
           """
