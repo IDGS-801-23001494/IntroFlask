@@ -7,3 +7,17 @@
     </div>
 
 {%endmacro%}
+
+
+{%macro campoNuevo(field)%}
+    <td>{{field.label}}</td>
+    <dd>{{field(**kwargs) | safe}}</dd> <!-- Pinta el campo, procesa el texto y lo interpreta como HTML -->
+    {%if field.errors %}
+
+    {%for error in field.errors%}
+        <li style="color: red">{{error}}</li>
+    {%endfor%}
+
+    {%endif%}
+
+{%endmacro%}
