@@ -21,3 +21,24 @@
     {%endif%}
 
 {%endmacro%}
+
+{% macro tarjetaCineco(field) %}
+  <div class="mb-3">
+    <label class="form-label d-block">{{ field.label.text }}</label>
+
+    {% for subfield in field %}
+      <div class="form-check form-check-inline">
+        {{ subfield(class="form-check-input") | safe }}
+        {{ subfield.label(class="form-check-label") }}
+      </div>
+    {% endfor %}
+
+    {% if field.errors %}
+      <div class="text-danger">
+        {% for error in field.errors %}
+          <div class="small">{{ error }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+{% endmacro %}
