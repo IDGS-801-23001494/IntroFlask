@@ -1,0 +1,29 @@
+{%extends "layout.html" %}
+{%block content%}
+{%import "_macros.html" as macros%}
+
+<form action="/distancia" method="post">
+
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+    <div class="mb-3">
+        {{macros.datos('x1','Ingrese el valor de x1','number')}}
+    </div>
+    <div class="mb-3">
+        {{macros.datos('x2','Ingrese el valor de x2','number')}}
+    </div>
+    <div class="mb-3">
+        {{macros.datos('y1','Ingrese el valor de y1','number')}}
+    </div>
+    <div class="mb-3">
+        {{macros.datos('y2','Ingrese el valor de y2','number')}}
+    </div>
+
+    <button class="btn btn-primary" type="submit">Calcular</button>
+
+</form>
+
+<h3>El resultado es: {{"%.2f"|format(r)}}</h3>
+
+
+{%endblock%}
